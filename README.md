@@ -14,6 +14,6 @@ This is a test project of mediusware codding exam
 to install the project 
 
 1) clone the proejct 
-    https://github.com/stamim0/mediusware.git
+    - [ ] https://github.com/stamim0/mediusware.git
 2) migrate table 
-    php artisan migrate ;
+    - [ ] php artisan migrate ;
