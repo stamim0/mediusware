@@ -43,7 +43,9 @@ class TransactionController extends Controller
     public function withdrawl(Request $request ){
         if($request->isMethod('post')){
 
-         
+            if($request->amount > auth()->user()->balance){
+                return back()->with(['response'=>'error','msg'=>'you have not enough amount']);
+            }
             $data = new Transaction() ;
                
            

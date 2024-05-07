@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(islogin::class)->group(function(){
-Route::get('/',[UserController::class,'auth'])->name('login') ;
+Route::get('/',[UserController::class,'auth'])->name('index') ;
 Route::match(['post'],'signup', [ UserController::class,'signup'])->name('signup');
 Route::match(['post'],'login', [ UserController::class,'login'])->name('login');
 });
