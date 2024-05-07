@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->on('users')->onDelete('cascade');
+            $table->integer('user_id')->nullable();
             $table->string('transaction_type');
             $table->double('amount')->nullable();
             $table->double('fee')->nullable();

@@ -3,6 +3,17 @@
 @section('content')
 <div class="container">
 
+  @if(\Session::get('response') == 'success')
+  <div data-mdb-alert-init="" class="alert alert-success" role="alert" data-mdb-color="success" data-mdb-alert-initialized="true">
+    {{\Session::get('msg') }}
+  </div>
+    @endif
+    @if(\Session::get('response') == 'error')
+    <div data-mdb-alert-init="" class="alert alert-success" role="alert" data-mdb-color="success" data-mdb-alert-initialized="true">
+      {{\Session::get('msg') }}
+    </div>
+    @endif
+
   <div class="row justify-content-center">
     <div class="col-md-4">
       <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
@@ -23,13 +34,13 @@
       
             <!-- Email input -->
             <div data-mdb-input-init class="form-outline mb-4">
-              <input type="email" id="loginName" class="form-control" />
+              <input type="email" id="loginName" name="email" class="form-control" />
               <label class="form-label" for="loginName">Email or username</label>
             </div>
     
             <!-- Password input -->
             <div data-mdb-input-init class="form-outline mb-4">
-              <input type="password" id="loginPassword" class="form-control" />
+              <input type="password" id="loginPassword" name="password" class="form-control" />
               <label class="form-label" for="loginPassword">Password</label>
             </div>
     
@@ -50,8 +61,8 @@
             </div>
     
             <!-- Submit button -->
-            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Sign
-              in</button>
+            <button type="submit" class="btn btn-primary btn-block mb-3">Sign
+              UP</button>
     
             <!-- Register buttons -->
             <div class="text-center">
@@ -92,14 +103,14 @@
     
             <!-- Repeat Password input -->
             <div data-mdb-input-init class="form-outline mb-4">
-              <input type="password" id="registerRepeatPassword" name="confirm_password" class="form-control" />
+              <input type="password" id="registerRepeatPassword" name="password_confirmation" class="form-control" />
               <label class="form-label" for="registerRepeatPassword">Repeat password</label>
             </div>
     
             
     
-            <a type="submit" class="btn btn-primary btn-block mb-3">Sign
-              UP</a>
+            <button type="submit" class="btn btn-primary btn-block mb-3">Sign
+              UP</button>
           </form>
         </div>
       </div>
