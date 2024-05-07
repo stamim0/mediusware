@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -18,13 +19,15 @@ class TransactionController extends Controller
             $request->validate([
                 'amount'=>'required',
             ]);
-
+            $user = User::find(auth()->user()->id) ;
             $data->user_id = auth()->user()->id ; 
             $data->transaction_type = 'deposit' ; 
             $data->amount = $request->amount ; 
                     
          
             if($data->save()){
+                    $user->balance = $user->balance + $request->amount ;
+                    $user->save();
                     return back()->with(['response'=>'success','msg'=>'Created successfully']);
             }
             else{
@@ -47,13 +50,20 @@ class TransactionController extends Controller
             $request->validate([
                 'amount'=>'required',
             ]);
+            $user = User::find(auth()->user()->id) ;
+            $rate =  $user->rate() ;
+            $fee =($request->amount * $rate ) / 100 ;
+            $amount = $request->amount - $fee ;
 
             $data->user_id = auth()->user()->id ; 
             $data->transaction_type = 'withdrawl' ; 
-            $data->amount = $request->amount ; 
+            $data->amount = $amount ; 
+            $data->fee = $fee ;
                     
          
             if($data->save()){
+                    $user->balance = $user->balance - $request->amount ;
+                    $user->save();
                     return back()->with(['response'=>'success','msg'=>'Created successfully']);
             }
             else{

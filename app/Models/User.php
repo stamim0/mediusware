@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use Carbon\Carbon;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -43,5 +43,26 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function rate(){
+        $currentDay = Carbon::now()->format('l');
+        $total_transaction = Transaction::where('user_id',$this->id)->sum('amount') ;
+        $month_transaction = Transaction::where('user_id',$this->id)->whereBetween('created_at',[Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth()])->sum('amount') ;
+        if ($currentDay == 'Firday' || $total_transaction < 5000 || $total_transaction < 1000) {
+           return 0 ;
+        }
+        $fee = 0 ;
+        if($this->account_type == 0){
+            $fee = 0.015 ;
+        }else{
+            if($total_transaction > 50000){
+                $fee = 0.015 ;
+            }else {
+                $fee = 0.025 ;
+            }
+        }
+
+        return $fee ;
     }
 }

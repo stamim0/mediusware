@@ -3,8 +3,23 @@
 @section('content')
 
 <div class="container mt-5">
+    <div class="m-5">
+        Account Holder : <b>{{auth()->user()->name}}</b> <br>
+        Holder Email : <b>{{auth()->user()->email}}</b> <br>
+        Account Type : <b> @if(auth()->user()->account_type == 0) Individual @else Bussiness @endif 
+    </b>
+    <span style=" float: right;">Balance : {{auth()->user()->balance}}</span>
+    <div class="m-5">  <a href="{{ route('logout')}}" class="btn btn-danger" style=" float: right;">Logout</a></div>
+    <div class="card-title">
+    </div>
 
+    <h4>User Dashboard</h4>
+</div>
 
+    <div class="m-5">  <a href="{{ route('dashboard')}}" class="btn btn-primary" >Dashboard</a></div>
+    <div class="card-title">
+        <h4>Deposit Transaction</h4>
+    </div>
 <div class="row">
     <div class="col-md-6">
         <div class="card">
@@ -52,7 +67,7 @@
             <thead>
                 <tr>
                     <th width="8    0%">Amount</th>
-                    <th width="20%" style="text-align: center;">Status</th>
+                    <th width="20%" style="text-align: center;">Transaction Type</th>
                 </tr>
             </thead>
             <tbody>

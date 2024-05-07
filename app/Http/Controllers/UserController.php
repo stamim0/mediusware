@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,10 @@ class UserController extends Controller
     //
 
     public function index(){
+        $list = Transaction::where('user_id',auth()->user()->id)->latest()->get();
+        return view('Frontend.user.dashboard',compact(['list'])) ;
+    }
+    public function auth(){
         return view('Frontend.user.auth') ;
     }
     public function signup(Request $request){
@@ -62,5 +67,9 @@ class UserController extends Controller
             }
         }
 
+    }
+    public function logout(){
+        auth()->logout();
+        return redirect()->route('login');
     }
 }
